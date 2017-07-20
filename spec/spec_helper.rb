@@ -1,6 +1,9 @@
 require "bundler/setup"
 require "policy"
 
+ENV['HMAC_SECRET'] ||= 'hmac_secret'
+ENV['JWT_ALGORITHM'] ||= 'HS256'
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
@@ -11,4 +14,6 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.expose_dsl_globally = true
 end
