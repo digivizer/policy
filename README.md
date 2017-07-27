@@ -7,16 +7,42 @@ The Policy gem is a builder and interpreter for authorization payloads between D
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'policy'
+gem 'policy', :git => 'https://github.com/digivizer/policy.git'
 ```
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+## Using the middleware for rack app
+in the `config.ru` file of your rack app add:
+```
+require 'rack/authorization'
 
-    $ gem install policy
+use Rack::Authorization
+
+run YourApp.app
+```
+
+Now that the middleware has been added to `YourApp` it will check if each request to your app has a valid `JWT` token and it will decode it
+
+This decoded coded jwt token can now be accessed in your app by calling the `request.env['policy']` variable.
+
+for example inside a [roda](https://github.com/jeremyevans/roda) app it would look something like
+```
+class YourApp < Roda
+  r.get "hello" do
+
+    policy = request.env['policy']
+
+    if policy.allowed?(:speak_service, :greeting, "MyId1234")
+      @greeting = 'Hello, how are you'
+    else
+      @greeting = 'Go away, your not allowed to speak!'
+    end
+  end
+end
+```
 
 ## Usage
 
