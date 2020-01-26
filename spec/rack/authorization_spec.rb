@@ -11,7 +11,7 @@ describe ::Rack::Authorization do
     let(:payload) { { "payload" => payload_body } }
     let(:payload_body) { { "some_id" => "abcd123456", "permissions" => permissions } }
     let(:permissions) { { "service" => { "resource" => ["abcdefghjiklmnopqrstuv"] } } }
-    let(:jwt_token) { JWT.encode(payload, ENV.fetch('HMAC_SECRET'), ENV.fetch('JWT_ALGORITHM')) }
+    let(:jwt_token) { JWT.encode(payload, ENV.fetch('JWT_SECRET'), ENV.fetch('JWT_ALGORITHM')) }
 
     it "passes the policy value to @app.call(env)" do
       expect(described_class.new(app).call(env)['policy'].payload).to eq(payload)

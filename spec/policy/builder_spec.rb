@@ -5,7 +5,7 @@ require 'jwt'
 require 'policy/builder'
 
 describe ::Policy::Builder do
-  let(:jwt_token) { JWT.encode(payload, ENV.fetch('HMAC_SECRET'), ENV.fetch('JWT_ALGORITHM')) }
+  let(:jwt_token) { JWT.encode(payload, ENV.fetch('JWT_SECRET'), ENV.fetch('JWT_ALGORITHM')) }
   let(:payload) { { "payload" => payload_body } }
   let(:payload_body) { { "some_id" => "abcd123456", "permissions" => permissions } }
   let(:permissions) { { "service" => { "resource" => resource_ids } } }

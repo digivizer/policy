@@ -1,7 +1,7 @@
 require "bundler/setup"
 require "policy"
 
-ENV['HMAC_SECRET'] ||= 'hmac_secret'
+ENV['JWT_SECRET'] ||= 'JWT_SECRET'
 ENV['JWT_ALGORITHM'] ||= 'HS256'
 
 RSpec.configure do |config|

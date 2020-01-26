@@ -53,7 +53,7 @@ class Policy
   def self.decode_jwt(jwt_token)
     JWT.decode(
       jwt_token,
-      ENV.fetch('HMAC_SECRET'),
+      ENV.fetch('JWT_SECRET'),
       true,
       { :algorithm => ENV.fetch('JWT_ALGORITHM') }
     ).first

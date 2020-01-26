@@ -51,7 +51,7 @@ class Policy
     def encode
       JWT.encode(
         to_hash,
-        ENV.fetch('HMAC_SECRET'),
+        ENV.fetch('JWT_SECRET'),
         ENV.fetch('JWT_ALGORITHM')
       )
     end
